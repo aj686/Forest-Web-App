@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %} Nexus {% endblock %}
+
+{% block header %} About Us {% endblock %}
+
+{% block body %}
+    <div class="container mt-5 pt-3">
+        <h1 class="mt-4 text-center">Meet Our Team</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card border-0 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">AJWAD AQHARI</h5>
+                        <p class="card-text">CEO (Chief Executive Officer)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-0 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">AMIRUL ZAINAL</h5>
+                        <p class="card-text">CFO (Chief Financial Officer)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-0 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">NINA SHAKILA</h5>
+                        <p class="card-text">COO (Chief Operating Officer)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-0 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">FAZLIA MAISARAH</h5>
+                        <p class="card-text">Forestry Manager</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card border-0 shadow">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">DANISH FARHAN</h5>
+                        <p class="card-text">Sustainability Officer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-5"></p>
+        <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+            <h1 class="w3-jumbo"><span class="w3-hide-small">Nexus</span> Forest Management.</h1>
+            <p>Sustainable Forestry, Lasting Legacy</p>
+        </header>
+    
+        <div class="text-center mb-4">
+            <img src="{{ url_for('static', filename='img/forestmanagement.jpg') }}" alt="boy" class="w3-imageb mb-4" style="object-fit: cover; width: 500px; height: auto;">
+            <h2 class="w3-text-light-grey">Our Vision</h2>
+            <p>We envision a future where responsible forestry practices ensure the health of our forests, providing sustainable wood products while partnering with communities for a thriving shared legacy.</p>
+        </div>
+    
+        <div class="card border-0 shadow mb-4">
+            <div class="card-body text-center">
+                <h2>Introduction</h2>
+                <p>Nexus Forest is a leading Malaysian forestry company dedicated to responsible forest management and the sustainable use of natural resources. We are committed to the well-being of Malaysia's forests, balancing economic growth with environmental stewardship.</p>
+            </div>
+        </div>
+    
+        <div class="card border-0 shadow mb-4">
+            <div class="card-body text-center">
+                <h2>Our Core Values:</h2>
+                <ul>
+                    <strong>Sustainability:</strong> We prioritize sustainable forestry practices that ensure the long-term health and productivity of our forests. <br>
+                    <strong>Innovation:</strong> We embrace innovative technologies and practices to improve forest management efficiency and minimize environmental impact.<br>
+                    <strong>Community:</strong> We believe in collaborating with local communities and stakeholders to create shared value and economic opportunities.
+                </ul>
+            </div>
+        </div>
+    
+        <div class="card border-0 shadow mb-4">
+            <div class="card-body text-center">
+                <h2>Why We Do?</h2>
+                <ul>
+                    <strong>Sustainability:</strong> Detailed tree data empowers Nexus Forest to make informed decisions that prioritize the long-term health of the forest ecosystem.<br>
+                    <strong>Community:</strong> Tree data collection can be a tool for building trust and transparency with local communities.<br>
+                    <strong>Innovation:</strong> Nexus Forest embraces technology to improve data collection efficiency and gain deeper insights into the forest.<br>
+                    <strong>Excellence:</strong> Precise tree data collection is the foundation for achieving excellence in all aspects of Nexus Forest's operations.
+                </ul>
+            </div>
+        </div>
+    
+        <div class="card border-0 shadow mb-4">
+            <div class="card-body text-center">
+                <h2>How We Do?</h2>
+                <ol>
+                    <strong>Sustainability:</strong> Knowing the species, size, and health of individual trees allows for selective logging, minimizing disruption and promoting biodiversity.<br>
+                    <strong>Innovation:</strong> Advanced data analysis software provides valuable information for optimizing forest management strategies and minimizing environmental impact.<br>
+                    <strong>Community:</strong> Sharing non-sensitive data (e.g., location data for specific tree species) can foster understanding of forest management practices.<br>
+                    <strong>Excellence:</strong> Sharing non-sensitive data (e.g., location data for specific tree species) can foster understanding of forest management practices.
+                </ol>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

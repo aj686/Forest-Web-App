@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Nexus {% endblock %}
+
+{% block header %} Volume Calculation {% endblock %}
+
+{% block body %}
+    <div class="container mt-5 pt-3">
+        <h1 class="mt-4">Volume Calculation</h1>
+        <p class="mb-5"></p>
+        <form class="row g-3 bg-light p-4 rounded" action="{{ url_for('volume') }}" method="post">
+            <div class="col-md-6">
+                <label for="diameter" class="form-label">Diameter (cm):</label>
+                <input type="text" class="form-control" id="diameter" name="diameter" required>
+            </div>
+            <div class="col-md-6">
+                <label for="height" class="form-label">Height (m):</label>
+                <input type="text" class="form-control" id="height" name="height" required>
+            </div>
+            <div class="col-12 p-4 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mx-1">Calculate</button>
+                <button type="reset" class="btn btn-danger">Clear</button>
+            </div>
+        </form>
+        {% if volume_result is not none %}
+        <div class="alert alert-info mt-4">
+            The calculated volume is {{ volume_result }} cubic meters.
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,86 @@
+Setup Python Virtual Enviroment:
+
+    1. pip install virtualenv
+    2. python -m venv venv 
+    3. venv\Scripts\activate
+
+Install FLask
+
+    https://code.visualstudio.com/docs/python/tutorial-flask
+    - Create Enviroment in vscode, after enter create .venv (Success Run)
+    - Create Enviroment in cmd, it create venv(Failed)
+        - error this -->  Error: Failed to find Flask application or factory in module 'app'. Use 'app:name' to specify one.
+
+    1. python -m pip install flask
+    2. python -m pip install flask (run in VS Code Termnial)
+    3. Crate file app.py
+    4. python -m flask run
+        - after run this both on vscode terminal and cmd env is successful
+
+        VS Code terminal output:
+            -m flask run
+            * Debug mode: off
+            WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+            * Running on http://127.0.0.1:5000
+            Press CTRL+C to quit
+        
+        CMD Env terminal output:
+            * Serving Flask app 'app.py'
+            * Debug mode: on
+            WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+            * Running on http://127.0.0.1:5000
+            Press CTRL+C to quit
+            * Restarting with stat
+            * Debugger is active!
+            * Debugger PIN: 258-654-839
+
+
+Others sytnax used:
+
+    1. clear 
+    2. pip list
+    3. deactivate
+    4. pip show flask
+
+
+
+
+Image Path:
+    
+    1. In Flask, folder 'static' need to create
+    2. put folder 'img' in static folder
+    3. app img <img src="{{ url_for('static', filename='img/forestmanagement.jpg') }}" 
+    
+    Why ?
+    url_for('static', filename='img/forestmanagement.jpg') generates the URL for the 
+    static file located at static/img/forestmanagement.jpg. 
+    Flask serves static files from the static directory by default.
+
+
+Navigation:
+    1. Set link at a href {{ url_for('input_tree') }}
+        <a class="nav-link" href="{{ url_for('input_tree') }}">Enter New Data</a>
+    2. set at app.py
+        @app.route('/input')  # as sub-url example http://127.0.0.1:5000/input
+        def input_tree():
+        return render_template('input_forest.html') # as html file
+
+
+Install MySQL
+    
+    Before this, we use mysql.connectorj
+
+    1. pip install flask_sqlalchemy
+
+
+Step how to run again this project after closed:
+
+    1. pip install flask_sqlalchemy
+    2. pip install pymysql
+
+    3. set FLASK_APP=app.py
+    4. set FLASK_DEBUG=1
+    5. python -m flask run
+
+    NOTE: To run this need to install again in env. For this i using venv not .venv and 
+          run cmd 

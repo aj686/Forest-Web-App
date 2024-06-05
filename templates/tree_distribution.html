@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %} Nexus {% endblock %}
+
+{% block header %} Tree Distribution {% endblock %}
+
+{% block body %}
+<div class="container mt-5 pt-3">
+    <h1 class="mt-4">Tree Distribution</h1>
+
+    <!-- Display the Plotly graph -->
+    <div id="tree-distribution-plot"></div>
+
+    <!-- Include Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        var graphJSON = {{ graph_json|safe }};
+        Plotly.newPlot('tree-distribution-plot', graphJSON.data, graphJSON.layout);
+
+        // Add custom hover information
+        var hoverInfo = document.getElementById('hover-info');
+
+        document.getElementById('tree-distribution-plot').on('plotly_hover', function(data){
+            var infotext = data.points.map(function(d){
+                return ('Tree Number: ' + d.text + '<br>' +
+                        'Damage Crown: ' + d.hovertext.split('<br>')[1] + '<br>' +
+                        'Damage Stem: ' + d.hovertext.split('<br>')[2]);
+            });
+            hoverInfo.innerHTML = infotext.join('<br>');
+        })
+        .on('plotly_unhover', function(data){
+            hoverInfo.innerHTML = '';
+        });
+    </script>
+
+    <!-- Hover information display -->
+    <div id="hover-info"></div>
+</div>
+{% endblock %}

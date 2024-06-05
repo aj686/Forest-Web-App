@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Nexus {% endblock %}
+
+{% block header %} Stand Table 30 Years {% endblock %}
+
+{% block body %}
+    <div class="container mt-5 pt-3">
+        <h1 class="mt-4">Stand Table for 30 Years</h1>
+
+        <!-- Table for Stand Data -->
+        <div id="standtable" class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Species Group</th>
+                        <th>Total Volume (m^3)</th>
+                        <th>Total Production</th>
+                        <th>Total Damage Crown (m)</th>
+                        <th>Total Damage Stem</th>
+                        <th>Total Diameter after 30 years</th>
+                        <th>Total Production after 30 years</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populate this table dynamically -->
+                    {% for stand30 in stand_table_30 %}
+                    <tr>
+                        <td>{{ stand30.Species_Group }}</td>
+                        <td>{{ stand30.Total_Volume_m3 }}</td>
+                        <td>{{ stand30.Total_Production }}</td>
+                        <td>{{ stand30.Total_Damage_Crown_m }}</td>
+                        <td>{{ stand30.Total_Damage_Stem }}</td>
+                        <td>{{ stand30.Total_Diameter_after_30_years }}</td>
+                        <td>{{ stand30.Total_Production_after_30_years }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

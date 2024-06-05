@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %} Nexus {% endblock %}
+
+{% block header %} Input New Tree {% endblock %}
+
+{% block body %}
+    <div class="container">
+    <p class="mb-5"></p>
+
+        <h1 class="mb-4">Insert New Tree</h1>
+        <form class="row g-3 bg-light p-4 rounded" action="{{ url_for('input_tree') }}" method="post">
+            <div class="col-md-6">
+                <label for="block_x" class="form-label">Block X:</label>
+                <input type="text" class="form-control" id="block_x" name="block_x">
+            </div>
+            <div class="col-md-6">
+                <label for="block_y" class="form-label">Block Y:</label>
+                <input type="text" class="form-control" id="block_y" name="block_y">
+            </div>
+            <div class="col-12">
+                <label for="coordinate_x" class="form-label">Coordinate X:</label>
+                <input type="text" class="form-control" id="coordinate_x" name="coordinate_x">
+            </div>
+            <div class="col-12">
+                <label for="coordinate_y" class="form-label">Coordinate Y:</label>
+                <input type="text" class="form-control" id="coordinate_y" name="coordinate_y">
+            </div>
+            <div class="col-md-6">
+                <label for="tree_number" class="form-label">Tree Number:</label>
+                <input type="text" class="form-control" id="tree_number" name="tree_number">
+            </div>
+            <div class="col-md-6">
+                <label for="specode" class="form-label">Species Code:</label>
+                <input type="text" class="form-control" id="specode" name="specode">
+            </div>
+            <div class="col-12">
+                <label for="species_group" class="form-label">Species Group:</label>
+                <input type="text" class="form-control" id="species_group" name="species_group">
+            </div>
+            <div class="col-md-6">
+                <label for="diameter_cm" class="form-label">Diameter (cm):</label>
+                <input type="text" class="form-control" id="diameter_cm" name="diameter_cm">
+            </div>
+            <div class="col-md-6">
+                <label for="diameter_class" class="form-label">Diameter Class:</label>
+                <input type="text" class="form-control" id="diameter_class" name="diameter_class">
+            </div>
+            <div class="col-md-6">
+                <label for="height_m" class="form-label">Height (m):</label>
+                <input type="text" class="form-control" id="height_m" name="height_m">
+            </div>
+            <div class="col-md-6">
+                <label for="volume_m3" class="form-label">Volume (m^3):</label>
+                <input type="text" class="form-control" id="volume_m3" name="volume_m3">
+            </div>
+            <div class="col-md-6">
+                <label for="status" class="form-label">Status:</label>
+                <input type="text" class="form-control" id="status" name="status">
+            </div>
+            <div class="col-md-6">
+                <label for="production" class="form-label">Production:</label>
+                <input type="text" class="form-control" id="production" name="production">
+            </div>
+            <div class="col-md-6">
+                <label for="cut_volume_m3" class="form-label">Cut Volume (m^3):</label>
+                <input type="text" class="form-control" id="cut_volume_m3" name="cut_volume_m3">
+            </div>
+            <div class="col-md-6">
+                <label for="cutting_angle" class="form-label">Cutting Angle:</label>
+                <input type="text" class="form-control" id="cutting_angle" name="cutting_angle">
+            </div>
+            <div class="col-md-6">
+                <label for="damage_crown" class="form-label">Damage Crown:</label>
+                <input type="text" class="form-control" id="damage_crown" name="damage_crown">
+            </div>
+            <div class="col-md-6">
+                <label for="damage_stem" class="form-label">Damage Stem:</label>
+                <input type="text" class="form-control" id="damage_stem" name="damage_stem">
+            </div>
+            <div class="col-md-6">
+                <label for="diameter_30" class="form-label">Diameter 30:</label>
+                <input type="text" class="form-control" id="diameter_30" name="diameter_30">
+            </div>
+            <div class="col-md-6">
+                <label for="production_30" class="form-label">Production 30:</label>
+                <input type="text" class="form-control" id="production_30" name="production_30">
+            </div>
+            <div class="col-md-6">
+                <label for="diameter_after_30_years" class="form-label">Diameter after 30 years:</label>
+                <input type="text" class="form-control" id="diameter_after_30_years" name="diameter_after_30_years">
+            </div>
+            <div class="col-md-6">
+                <label for="volume_after_30_years" class="form-label">Volume after 30 years:</label>
+                <input type="text" class="form-control" id="volume_after_30_years" name="volume_after_30_years">
+            </div>
+            <div class="col-12 p-4 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mx-1">Submit</button>
+                <button type="reset" class="btn btn-danger">Cancel</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

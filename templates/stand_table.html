@@ -1,0 +1,47 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %} Nexus {% endblock %}
+
+{% block header %} Stand Table {% endblock %}
+
+{% block body %}
+    <div class="container mt-5 pt-3">
+        <h1 class="mt-4">Stand Table</h1>
+
+        <!-- Table for Stand Data -->
+        <div id="standtable" class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>Species Group</th>
+                        <th>Total Volume (m^3)</th>
+                        <th>Total Number of Trees</th>
+                        <th>5-15 cm</th>
+                        <th>15-30 cm</th>
+                        <th>30-45 cm</th>
+                        <th>45-60 cm</th>
+                        <th>60-250 cm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populate this table dynamically -->
+                    {% for stand in stand_data %}
+                    <tr>
+                        <td>{{ stand.Species_Group }}</td>
+                        <td>{{ stand.Total_Volume_m3 }}</td>
+                        <td>{{ stand.Total_Number_of_Trees }}</td>
+                        <td>{{ stand.Diameter_5_15_cm }}</td>
+                        <td>{{ stand.Diameter_15_30_cm }}</td>
+                        <td>{{ stand.Diameter_30_45_cm }}</td>
+                        <td>{{ stand.Diameter_45_60_cm }}</td>
+                        <td>{{ stand.Diameter_60_250_cm }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}

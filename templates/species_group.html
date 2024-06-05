@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Nexus {% endblock %}
+
+{% block header %} Species Group {% endblock %}
+
+{% block body %}
+    <div class="container mt-5 pt-3">
+        <h1 class="mt-4">Species Group</h1>
+
+        <!-- Table for Species Group Data -->
+        <div id="speciesGroupTable" class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>SPRGROUP</th>
+                        <th>NAME</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populate this table dynamically -->
+                    {% for species in species %}
+                    <tr>
+                        <td>{{ species.SPRGROUP }}</td>
+                        <td>{{ species.NAME }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

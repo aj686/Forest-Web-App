@@ -12,6 +12,7 @@ import plotly.utils
 import plotly
 
 
+
 # Initializing Flask application
 app = Flask(__name__)
 
@@ -27,7 +28,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class CutTrees(db.Model):
-    __tablename__ = 'newforest'
+    __tablename__ = 'newforestnew'
     __table_args__ = (
         db.PrimaryKeyConstraint('Block_X', 'Block_Y', 'Tree_Number'),
     )
@@ -103,7 +104,7 @@ class StandTable30(db.Model):
     Species_Group = db.Column('Species Group', db.Integer, primary_key=True)
     Total_Volume_m3 = db.Column('Total Volume (m^3)', db.Float(precision=8))
     Total_Production = db.Column('Total Production', db.Float(precision=8))
-    Total_Damage_Crown_m = db.Column('Total Damage Crown (m)', db.Float(precision=8))
+    # Total_Damage_Crown_m = db.Column('Total Damage Crown (m)', db.Float(precision=8))
     Total_Damage_Stem = db.Column('Total Damage Stem', db.Float(precision=8))
     Total_Diameter_after_30_years = db.Column('Total Diameter after 30 years', db.Float(precision=8))
     Total_Production_after_30_years = db.Column('Total Production after 30 years', db.Float(precision=8))
@@ -112,7 +113,7 @@ class StandTable30(db.Model):
         self.Species_Group = Species_Group
         self.Total_Volume_m3 = Total_Volume_m3
         self.Total_Production = Total_Production
-        self.Total_Damage_Crown_m = Total_Damage_Crown_m
+        # self.Total_Damage_Crown_m = Total_Damage_Crown_m
         self.Total_Damage_Stem = Total_Damage_Stem
         self.Total_Diameter_after_30_years = Total_Diameter_after_30_years
         self.Total_Production_after_30_years = Total_Production_after_30_years
@@ -254,7 +255,7 @@ def about_us():
 @app.route('/tree_distribution')
 def tree_distribution():
     # Retrieve tree data
-    all_trees = CutTrees.query.all()
+    all_trees = CutTrees.query.limit(500).all()
 
     # Separate cut and kept trees based on status
     cut_trees = [(tree.Coordinate_X, tree.Coordinate_Y, tree.Tree_Number, tree.Status, tree.Damage_Crown, tree.Damage_Stem) for tree in all_trees if tree.Status == 'Cut']
@@ -269,10 +270,11 @@ def tree_distribution():
         x=cut_x + keep_x,
         y=cut_y + keep_y,
         color=cut_status + keep_status,
+        color_discrete_map={'Keep': 'green', 'Cut': 'red'},  # Set colors for 'Keep' and 'Cut'
         labels={'x': 'X Coordinate', 'y': 'Y Coordinate', 'color': 'Status'},
         title='Tree Distribution',
         hover_name=None,  # Exclude tree names from hover
-        hover_data={'Tree Number':  cut_tree_number + kept_tree_number,'Damage Crown': cut_damage_crown + keep_damage_crown, 'Damage Stem': cut_damage_stem + keep_damage_stem}
+        hover_data={'Tree Number':  cut_tree_number + kept_tree_number, 'Damage': cut_damage_stem + keep_damage_stem}
     )
 
     fig.update_traces(marker=dict(size=8))
@@ -289,18 +291,24 @@ def tree_distribution():
 
 @app.route('/sustainable')
 def sustainable():
-    page = request.args.get('page', 1, type=int)
-    per_page = 10  # Number of items per page
+    # Fetch all StandTable30 data from the database
+    all_stand_data_30 = StandTable30.query.all()
 
-    pagination = CutTrees.query.order_by(
-        CutTrees.Block_X.desc(),
-        CutTrees.Block_Y.desc(),
-        CutTrees.Tree_Number.desc()
-    ).paginate(page=page, per_page=per_page)
+    # Prepare data for Plotly graphs
+    x_values = [stand.Species_Group for stand in all_stand_data_30]
+    initial_production_values = [stand.Total_Production for stand in all_stand_data_30]
+    initial_volume_values = [stand.Total_Volume_m3 for stand in all_stand_data_30]
+    thirty_years_production_values = [stand.Total_Production_after_30_years for stand in all_stand_data_30]
+    thirty_years_diameter_values = [stand.Total_Diameter_after_30_years for stand in all_stand_data_30]
 
-    cut_trees = pagination.items
-
-    return render_template('sustainable.html', cut_trees=cut_trees, pagination=pagination)
+    # Pass the fetched data and graph data to the template for rendering
+    return render_template('sustainable.html', 
+                           stand_data_30=all_stand_data_30, 
+                           x_values=x_values, 
+                           initial_production_values=initial_production_values, 
+                           initial_volume_values=initial_volume_values,
+                           thirty_years_production_values=thirty_years_production_values,
+                           thirty_years_diameter_values=thirty_years_diameter_values)
 
 
 

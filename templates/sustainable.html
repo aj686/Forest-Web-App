@@ -1,128 +1,97 @@
-<!-- sustainable.html -->
 {% extends 'base.html' %}
-
-{% block title %}Sustainable Table{% endblock %}
-
-{% block header %}Sustainable Table{% endblock %}
-
+{% block title %} Stand Table 30 {% endblock %}
+{% block header %} Stand Table 30 {% endblock %}
 {% block body %}
 <div class="container mt-5">
-    <p class="mb-5"></p>
-    <h1>Sustainable Table</h1>
-    <div class="table-responsive">
+    <!-- Table for StandTable30 Data -->
+    <div id="standtable" class="table-responsive">
         <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+            <!-- Table header -->
+            <thead class="bg-dark text-light">
                 <tr>
-                    <th>Block X</th>
-                    <th>Block Y</th>
-                    <th>Tree Number</th>
-                    <th>Production</th>
-                    <th>Volume (m³)</th>
-                    <th>Production after 30 years</th>
-                    <th>Volume after 30 years (m³)</th>
+                    <th>Species Group</th>
+                    <th>Total Volume (m³)</th>
+                    <th>Total Production</th>
+                    <th>Total Damage Stem</th>
+                    <th>Total Diameter after 30 years</th>
+                    <th>Total Production after 30 years</th>
                 </tr>
             </thead>
+            <!-- Table body -->
             <tbody>
-                {% for tree in cut_trees %}
+                {% for stand in stand_data_30 %}
                 <tr>
-                    <td>{{ tree.Block_X }}</td>
-                    <td>{{ tree.Block_Y }}</td>
-                    <td>{{ tree.Tree_Number }}</td>
-                    <td>{{ tree.Production }}</td>
-                    <td>{{ tree.Volume_m3 }}</td>
-                    <td>{{ tree.Production_30 }}</td>
-                    <td>{{ tree.Volume_after_30_years }}</td>
+                    <td>{{ stand.Species_Group }}</td>
+                    <td>{{ stand.Total_Volume_m3 }}</td>
+                    <td>{{ stand.Total_Production }}</td>
+                    <td>{{ stand.Total_Damage_Stem }}</td>
+                    <td>{{ stand.Total_Diameter_after_30_years }}</td>
+                    <td>{{ stand.Total_Production_after_30_years }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <!-- Pagination controls -->
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if pagination.has_prev %}
-            <li class="page-item">
-                <a class="page-link" href="{{ url_for('sustainable', page=pagination.prev_num) }}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {% endif %}
-            
-            {% for page_num in pagination.iter_pages() %}
-            <li class="page-item {% if page_num == pagination.page %}active{% endif %}">
-                <a class="page-link" href="{{ url_for('sustainable', page=page_num) }}">{{ page_num }}</a>
-            </li>
-            {% endfor %}
-            
-            {% if pagination.has_next %}
-            <li class="page-item">
-                <a class="page-link" href="{{ url_for('sustainable', page=pagination.next_num) }}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            {% endif %}
-        </ul>
-    </nav>
+    <!-- Plotly graph -->
+    <div id="graph"></div>
 
-    <!-- Plotly Charts -->
-    <div id="charts" class="mt-5">
-        <div id="production-chart"></div>
-        <div id="volume-chart"></div>
-    </div>
+    <!-- Load Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        var x_values = {{ x_values|tojson }};
+        var initial_production_values = {{ initial_production_values|tojson }};
+        var initial_volume_values = {{ initial_volume_values|tojson }};
+        var thirty_years_production_values = {{ thirty_years_production_values|tojson }};
+        var thirty_years_diameter_values = {{ thirty_years_diameter_values|tojson }};
+
+        // Define colors for each dataset
+        var initial_production_color = 'rgb(31, 119, 180)';
+        var initial_volume_color = 'rgb(255, 127, 14)';
+        var thirty_years_production_color = 'rgb(44, 160, 44)';
+        var thirty_years_diameter_color = 'rgb(148, 103, 189)';
+
+        // Define traces for each dataset
+        var traces = [
+            {
+                x: x_values,
+                y: initial_production_values,
+                name: 'Initial Production',
+                type: 'bar',
+                marker: { color: initial_production_color }
+            },
+            {
+                x: x_values,
+                y: initial_volume_values,
+                name: 'Initial Volume',
+                type: 'bar',
+                marker: { color: initial_volume_color }
+            },
+            {
+                x: x_values,
+                y: thirty_years_production_values,
+                name: '30 Years Production',
+                type: 'bar',
+                marker: { color: thirty_years_production_color }
+            },
+            {
+                x: x_values,
+                y: thirty_years_diameter_values,
+                name: '30 Years Diameter',
+                type: 'bar',
+                marker: { color: thirty_years_diameter_color }
+            }
+        ];
+
+        // Define layout for the graph
+        var layout = {
+            title: 'Stand Table 30',
+            xaxis: { title: 'Species Group' },
+            yaxis: { title: 'Value' }
+        };
+
+        // Plot the graph
+        Plotly.newPlot('graph', traces, layout);
+    </script>
 </div>
-
-<!-- Load Plotly.js -->
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script>
-    // Prepare data for Production Chart
-    var productionData = {
-        x: [{% for tree in cut_trees %} "{{ tree.Tree_Number }}", {% endfor %}],
-        y: [{% for tree in cut_trees %} {{ tree.Production }}, {% endfor %}],
-        name: 'Initial Production',
-        type: 'bar'
-    };
-
-    var production30Data = {
-        x: [{% for tree in cut_trees %} "{{ tree.Tree_Number }}", {% endfor %}],
-        y: [{% for tree in cut_trees %} {{ tree.Production_30 }}, {% endfor %}],
-        name: 'Production after 30 years',
-        type: 'bar'
-    };
-
-    var productionLayout = {
-        title: 'Initial and After 30 Years Production',
-        barmode: 'group'
-    };
-
-    var productionChart = [productionData, production30Data];
-
-    // Render Production Chart
-    Plotly.newPlot('production-chart', productionChart, productionLayout);
-
-    // Prepare data for Volume Chart
-    var volumeData = {
-        x: [{% for tree in cut_trees %} "{{ tree.Tree_Number }}", {% endfor %}],
-        y: [{% for tree in cut_trees %} {{ tree.Volume_m3 }}, {% endfor %}],
-        name: 'Initial Volume',
-        type: 'bar'
-    };
-
-    var volume30Data = {
-        x: [{% for tree in cut_trees %} "{{ tree.Tree_Number }}", {% endfor %}],
-        y: [{% for tree in cut_trees %} {{ tree.Volume_after_30_years }}, {% endfor %}],
-        name: 'Volume after 30 years',
-        type: 'bar'
-    };
-
-    var volumeLayout = {
-        title: 'Initial and After 30 Years Volume',
-        barmode: 'group'
-    };
-
-    var volumeChart = [volumeData, volume30Data];
-
-    // Render Volume Chart
-    Plotly.newPlot('volume-chart', volumeChart, volumeLayout);
-</script>
 {% endblock %}

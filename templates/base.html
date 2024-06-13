@@ -16,6 +16,7 @@
             width: 250px;
             background-color: #b1d182; /* Forest theme color */
             padding-top: 3.5rem;
+            overflow: hidden; /* Ensure sidebar content doesn't overflow */
         }
         .sidebar .nav-link {
             color: #fff;
@@ -51,10 +52,40 @@
         }
 
         .table-responsive {
-        overflow-x: auto;
-        overflow-y: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
         }
-        
+
+        /* New animations */
+        .moving-object {
+            animation: moveObject 5s infinite alternate;
+        }
+
+        @keyframes moveObject {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(20px);
+            }
+        }
+
+        /* Background animation */
+        body {
+            background-image: url('https://via.placeholder.com/1920x1080'); /* Replace with your image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            animation: waveBackground 20s linear infinite alternate;
+        }
+
+        @keyframes waveBackground {
+            0% {
+                background-position-x: 0;
+            }
+            100% {
+                background-position-x: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -67,15 +98,14 @@
                     <p class="navbar-brand mb-0 h1" style="font-size: 30px;">Nexus</p>
                 </div>
                 <div class="col-auto">
-            <img src="static/img/nexuslogo.png" alt="Nexus Logo" width="50" height="50" class="d-inline-block align-top me-2" loading="lazy">
+                    <img src="static/img/nexuslogo.png" alt="Nexus Logo" width="50" height="50" class="d-inline-block align-top me-2" loading="lazy">
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-</nav>
+    </nav>
 
-<p class="mb-5"></p>
+    <p class="mb-5"></p>
 
-    
     <!-- Sidebar -->
     <div class="sidebar mt-4">
         <ul class="nav flex-column">
@@ -112,18 +142,17 @@
         </ul>
     </div>
 
-
     <!-- Main content area -->
-    <!-- As a template for all html file and the particular content will contain in block body below-->
     <div class="content">
         {% block body %}
         
         {% endblock %}
     </div>
     
-    
+    <!-- Bootstrap JS and other libraries -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
 </html>
+

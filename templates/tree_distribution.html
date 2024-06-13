@@ -23,8 +23,7 @@
         document.getElementById('tree-distribution-plot').on('plotly_hover', function(data){
             var infotext = data.points.map(function(d){
                 return ('Tree Number: ' + d.text + '<br>' +
-                        'Damage Crown: ' + d.hovertext.split('<br>')[1] + '<br>' +
-                        'Damage Stem: ' + d.hovertext.split('<br>')[2]);
+                        'Damage: ' + d.hovertext.split('<br>')[1] + '<br>');  // Change to 'Damage'
             });
             hoverInfo.innerHTML = infotext.join('<br>');
         })
